@@ -1,20 +1,32 @@
 pipeline {
     agent any
-    tools { 
+    tools {
         maven 'Maven'
     }
     stages {
-        stage ('Compile') {
+        stage ('Initial') {
             steps {
-                sh '''
-                    ./mvnw clean compile -e
-                ''' 
+              sh '''
+                   echo "PATH = ${PATH}"
+                   echo "M2_HOME = ${M2_HOME}"
+               '''
             }
         }
 
-        stage ('Build') {
+        stage ('Compile') {
             steps {
-                echo 'This is a minimal pipeline.'
+                 sh 'mvn clean compile -e'
+            }
+        }
+
+        stage ('SonarQube') {
+            steps {
+                 sh '''
+                 mvn sonar:sonar \
+                  -Dsonar.projectKey=github2 \
+                  -Dsonar.host.url=http://localhost:9000 \
+                  -Dsonar.login=1890805ea65026d01d5d91a5bdc52f66c42659bb
+                '''
             }
         }
     }
