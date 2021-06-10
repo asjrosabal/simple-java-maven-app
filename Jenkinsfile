@@ -29,9 +29,9 @@ pipeline {
             steps {
                  sh '''
                  mvn sonar:sonar \
-                  -Dsonar.projectKey=github2 \
-                  -Dsonar.host.url=http://localhost:9000 \
-                  -Dsonar.login=1890805ea65026d01d5d91a5bdc52f66c42659bb
+                  -Dsonar.projectKey=Maven \
+                  -Dsonar.host.url=http://172.18.0.3:9000 \
+                  -Dsonar.login=4b5f68e7a9670ae20e30e3212a570651245647c6
                 '''
             }
         }
