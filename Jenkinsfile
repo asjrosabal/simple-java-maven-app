@@ -19,6 +19,12 @@ pipeline {
             }
         }
 
+        stage ('Test') {
+            steps {
+                 sh 'mvn clean test -e'
+            }
+        }
+
         stage ('SonarQube') {
             steps {
                  sh '''
@@ -29,5 +35,27 @@ pipeline {
                 '''
             }
         }
+
+        stage ('SCA') {
+            steps {
+                 echo 'sca'
+            }
+        }
+
+        stage ('JAR Create') {
+            steps {
+                 sh 'mvn clean package -e'
+            }
+        }
+
+        stage ('Run JAR ') {
+            steps {
+                 sh 'mvn spring-boot:run'
+                 //curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'
+            }
+        }
+
+
+
     }
 }
